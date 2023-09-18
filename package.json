@@ -1,0 +1,34 @@
+{
+  "name": "saltedge-ts",
+  "version": "0.0.1",
+  "description": "TypeScript client for Salt Edge API",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Momy93/saltedge.git"
+  },
+  "keywords": [
+    "saltedge",
+    "psd2",
+    "api",
+    "open-banking"
+  ],
+  "author": "Mohamed Fadiga",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Momy93/saltedge/issues"
+  },
+  "homepage": "https://github.com/Momy93/saltedge",
+  "devDependencies": {
+    "@types/node": "^20.6.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@azure/keyvault-keys": "^4.7.2",
+    "axios": "^1.5.0"
+  },
+  "types": "./lib/index.d.ts",
+  "main": "./lib/index.js",
+  "files": [
+    "lib/"
+  ]
+}

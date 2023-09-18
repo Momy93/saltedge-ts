@@ -1,0 +1,15 @@
+.idea
+node_modules
+dist
+*.crt
+*.key
+.env
+.vscode
+.npmrc
+.DS_Store
+*firebase-admin*.json
+*.pem
+*.csv
+.service-account-file.json
+/coverage
+junit.xml
