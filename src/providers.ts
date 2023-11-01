@@ -17,7 +17,7 @@ export class Providers {
         let url = Providers.BASE_URL;
         if (params) url += `?${toQueryString(params)}`;
 
-        return this.saltedgeClient.getResource<Provider[]>(url);
+        return this.saltedgeClient.get<Provider[]>(url);
     }
 
     async show(providerCode: string, params?: {
@@ -25,7 +25,7 @@ export class Providers {
     }) {
         let url = `${Providers.BASE_URL}/${providerCode}`;
         if (!!params?.include_payments_fields) url += `?include_payments_fields=${params.include_payments_fields}`;
-        return this.saltedgeClient.getResource<Provider>(url);
+        return this.saltedgeClient.get<Provider>(url);
     }
 }
 

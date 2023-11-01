@@ -54,7 +54,7 @@ export class SaltedgePartnerClient {
         };
     }
 
-    async getResource<T>(url: string): Promise<EndpointResult<T>> {
+    async get<T>(url: string): Promise<EndpointResult<T>> {
         try {
             const response = await this.httpClient.get<ResponseData<T>>(url);
             return {
@@ -62,20 +62,48 @@ export class SaltedgePartnerClient {
                 value: response.data,
             };
         } catch (error) {
-            let specificError = error;
-            if (isAxiosError(error)) {
-                switch (error.response?.status) {
-                    case HttpStatusCode.BadRequest:
-                    case HttpStatusCode.NotFound:
-                    case HttpStatusCode.NotAcceptable:
-                    case HttpStatusCode.Conflict:
-                        specificError = error.response?.data.error;
-                }
-            }
+            return this.parseError(error)
+        }
+    }
+
+    async post<T>(url: string, body: unknown): Promise<EndpointResult<T>> {
+        try {
+            const response = await this.httpClient.post<ResponseData<T>>(url, body);
             return {
-                isErr: true,
-                error: specificError,
+                isOk: true,
+                value: response.data
             }
+        } catch (error) {
+            return this.parseError(error)
+        }
+    }
+
+    async delete<T>(url: string): Promise<EndpointResult<T>> {
+        try {
+            const response = await this.httpClient.delete<ResponseData<T>>(url);
+            return {
+                isOk: true,
+                value: response.data
+            }
+        } catch (error) {
+            return this.parseError(error)
+        }
+    }
+
+    parseError<T>(error): EndpointResult<T> {
+        let specificError = error;
+        if (isAxiosError(error)) {
+            switch (error.response?.status) {
+                case HttpStatusCode.BadRequest:
+                case HttpStatusCode.NotFound:
+                case HttpStatusCode.NotAcceptable:
+                case HttpStatusCode.Conflict:
+                    specificError = error.response?.data.error;
+            }
+        }
+        return {
+            isErr: true,
+            error: specificError,
         }
     }
 }
