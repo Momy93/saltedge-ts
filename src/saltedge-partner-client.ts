@@ -3,10 +3,12 @@ import axios, {AxiosHeaders, AxiosInstance, HttpStatusCode, InternalAxiosRequest
 import {Providers} from "./providers";
 import {EndpointResult, ResponseData} from "./result";
 import {CryptographyClient} from "@azure/keyvault-keys";
+import {PaymentTemplates} from "./payment-templates";
 
 export class SaltedgePartnerClient {
     private readonly httpClient: AxiosInstance;
     readonly providers: Providers;
+    readonly paymentTemplates: PaymentTemplates;
 
     constructor(private appId: string, private secret: string, private signer?: Signer) {
         this.httpClient = axios.create({
@@ -21,6 +23,7 @@ export class SaltedgePartnerClient {
         });
 
         this.providers = new Providers(this);
+        this.paymentTemplates = new PaymentTemplates(this);
     }
 
     async signRequest(req: InternalAxiosRequestConfig) {
